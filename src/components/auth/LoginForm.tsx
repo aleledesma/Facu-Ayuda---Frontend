@@ -11,7 +11,8 @@ import useUserContext from "@/hooks/useUserContext"
 
 export default function LoginForm() {
   const [loginIsActive, setLoginIsActive] = useState(false)
-  const { user, setUser } = useUserContext()
+  const [codeIsActive, setCodeIsActive] = useState(true)
+  const { setUser } = useUserContext()
   const router = useRouter()
   const {
     register,
@@ -27,6 +28,7 @@ export default function LoginForm() {
     try {
       const validations = await trigger(["name", "email"])
       if (validations) {
+        setCodeIsActive(false)
         const { name, email } = watch()
         await axios.post(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}/code`,
@@ -35,14 +37,19 @@ export default function LoginForm() {
           }
         )
         setLoginIsActive(true)
+        setTimeout(() => {
+          setCodeIsActive(true)
+        }, 45000)
       }
     } catch (error) {
       console.log(error)
+      setCodeIsActive(true)
     }
   }
 
   const handleLogin: SubmitHandler<LoginFormType> = async (data) => {
     const { email, name } = data
+    setLoginIsActive(false)
     try {
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}`,
@@ -60,6 +67,9 @@ export default function LoginForm() {
       router.push("/")
     } catch (error) {
       console.log(error)
+      setTimeout(() => {
+        setLoginIsActive(true)
+      }, 5000)
     }
   }
 
@@ -117,7 +127,7 @@ export default function LoginForm() {
         <button
           onClick={getLoginCode}
           type="button"
-          className="btn btn-neutral"
+          className={`btn btn-neutral ${!codeIsActive && "btn-disabled"}`}
         >
           Obtener Código
         </button>
