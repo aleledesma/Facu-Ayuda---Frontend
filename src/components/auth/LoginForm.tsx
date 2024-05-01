@@ -17,21 +17,25 @@ export default function LoginForm() {
     register,
     handleSubmit,
     watch,
+    trigger,
     formState: { errors },
   } = useForm<LoginFormType>({
     resolver: zodResolver(loginFormSchema),
   })
 
   const getLoginCode = async () => {
-    const { name, email } = watch()
     try {
-      const res = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}/code`,
-        {
-          username: name,
-        }
-      )
-      setLoginIsActive(true)
+      const validations = await trigger(["name", "email"])
+      if (validations) {
+        const { name, email } = watch()
+        await axios.post(
+          `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}/code`,
+          {
+            username: name,
+          }
+        )
+        setLoginIsActive(true)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -92,8 +96,12 @@ export default function LoginForm() {
             placeholder="código"
             error={errors.code?.message}
             register={register("code")}
+            disabled={!loginIsActive}
           />
-          <ErrorSpan error={errors.code?.message} className="ml-1" />
+          <ErrorSpan
+            error={errors.code && "El codigo debe tener 6 caracteres"}
+            className="ml-1"
+          />
         </div>
       </div>
 
