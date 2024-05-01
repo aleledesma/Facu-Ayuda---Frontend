@@ -26,7 +26,6 @@ export default function UserAuthProvider({
     const userFromLS = localStorage.getItem("user")
     const userParsed = userFromLS ? JSON.parse(userFromLS) : null
     setUser(userParsed)
-    console.log(userParsed)
   }, [])
 
   return (
