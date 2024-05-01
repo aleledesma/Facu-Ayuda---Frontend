@@ -4,9 +4,19 @@ import TabBarsIcon from "../icons/TabBarsIcon"
 import SearchIcon from "../icons/SearchIcon"
 import MajorSearch from "../ui/MajorSearch"
 import useUserContext from "@/hooks/useUserContext"
+import { useRouter } from "next/navigation"
 
 export default function Navbar() {
   const { user, setUser } = useUserContext()
+  const router = useRouter()
+
+  const handleLogout = () => {
+    localStorage.removeItem("user")
+    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC;"
+    setUser(null)
+    router.push("/login")
+  }
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -47,10 +57,14 @@ export default function Navbar() {
             Subir Material
           </Link>
         </div>
-        {!user && (
+        {!user ? (
           <Link href="/login" className="btn btn-success btn-md">
             Iniciar Sesión
           </Link>
+        ) : (
+          <button onClick={handleLogout} className="btn btn-sm btn-ghost">
+            Cerrar Sesión
+          </button>
         )}
       </div>
     </div>
