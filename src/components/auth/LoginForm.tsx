@@ -3,11 +3,29 @@ import { useState } from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 import { loginFormSchema, LoginFormType } from "@/schemas/loginFormSchema"
 import { zodResolver } from "@hookform/resolvers/zod"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import Input from "../ui/Input"
 import ErrorSpan from "../ui/ErrorSpan"
 import { useRouter } from "next/navigation"
 import useUserContext from "@/hooks/useUserContext"
+import toast from "react-hot-toast"
+import { ResponseInterface } from "@/types/responseInterface"
+import { UserResponseInterface } from "@/types/userInterface"
+
+const showNotification = (message: string, ok: boolean) => {
+  const toastConfig = {
+    duration: 5000,
+    position: "top-right",
+    style: {
+      "margin-top": "50px",
+    },
+  }
+  if (ok) {
+    toast.success(message, toastConfig as any) // ta mal
+  } else {
+    toast.error(message, toastConfig as any) // ta mal
+  }
+}
 
 export default function LoginForm() {
   const [loginIsActive, setLoginIsActive] = useState(false)
@@ -30,18 +48,22 @@ export default function LoginForm() {
       if (validations) {
         setCodeIsActive(false)
         const { name, email } = watch()
-        await axios.post(
+        const res = await axios.post<ResponseInterface>(
           `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}/code`,
           {
             username: name,
           }
         )
+        showNotification(res.data.message, res.data.ok)
         setLoginIsActive(true)
         setTimeout(() => {
           setCodeIsActive(true)
         }, 45000)
       }
     } catch (error) {
+      if (error instanceof AxiosError) {
+        showNotification(error.response?.data.message, false)
+      }
       console.log(error)
       setCodeIsActive(true)
     }
@@ -51,7 +73,7 @@ export default function LoginForm() {
     const { email, name } = data
     setLoginIsActive(false)
     try {
-      const res = await axios.post(
+      const res = await axios.post<UserResponseInterface>(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login/${email}`,
         {
           email,
@@ -62,10 +84,14 @@ export default function LoginForm() {
           withCredentials: true,
         }
       )
+      showNotification(res.data.message, res.data.ok)
       localStorage.setItem("user", JSON.stringify(res.data.data))
       setUser(res.data.data)
       router.push("/")
     } catch (error) {
+      if (error instanceof AxiosError) {
+        showNotification(error.response?.data.message, false)
+      }
       console.log(error)
       setTimeout(() => {
         setLoginIsActive(true)

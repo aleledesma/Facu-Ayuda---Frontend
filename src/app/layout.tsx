@@ -4,6 +4,7 @@ import "./globals.css"
 import Navbar from "@/components/global/Navbar"
 import ReactQueryProvider from "@/components/providers/ReactQueryProvider"
 import UserAuthProvider from "@/components/global/UserAuthProvider"
+import { Toaster } from "react-hot-toast"
 const notoSans = Noto_Sans({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
@@ -22,7 +23,10 @@ export default function RootLayout({
         <ReactQueryProvider>
           <UserAuthProvider>
             <Navbar />
-            <main>{children}</main>
+            <main>
+              <Toaster />
+              {children}
+            </main>
           </UserAuthProvider>
         </ReactQueryProvider>
       </body>

@@ -10,8 +10,8 @@ import {
 } from "react"
 
 export interface ContextValue {
-  user: UserPayload | null
-  setUser: Dispatch<SetStateAction<UserPayload | null>>
+  user: UserPayload | null | undefined
+  setUser: Dispatch<SetStateAction<UserPayload | null | undefined>>
 }
 export const UserAuthContext = createContext<ContextValue | null>(null)
 
@@ -20,7 +20,7 @@ export default function UserAuthProvider({
 }: {
   children: React.ReactNode
 }) {
-  const [user, setUser] = useState<UserPayload | null>(null)
+  const [user, setUser] = useState<UserPayload | null | undefined>(null)
 
   useEffect(() => {
     const userFromLS = localStorage.getItem("user")
