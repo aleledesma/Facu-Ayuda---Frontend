@@ -29,13 +29,13 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a>Item 1</a>
+              <Link href="/carreras">Carreras</Link>
             </li>
             <li>
-              <a>Item 2</a>
+              <Link href="/subir">Subir Material</Link>
             </li>
             <li>
-              <a>Item 3</a>
+              <Link href="/login">Iniciar Sesión</Link>
             </li>
           </ul>
         </div>
@@ -48,7 +48,7 @@ export default function Navbar() {
           <MajorSearch />
         </div>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end hidden lg:flex">
         <div className="flex gap-2 mr-10">
           <Link href="/carreras" className="btn btn-ghost">
             Carreras

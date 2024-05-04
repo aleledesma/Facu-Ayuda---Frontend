@@ -18,7 +18,7 @@ export default function Page() {
       {isLoading && <span className="loading loading-dots loading-lg"></span>}
       {isError && (
         <ErrorAlert
-          errorMessage="Error al obtener las carreras, recarga la páguina para intentar nuevamente."
+          errorMessage="Error al obtener las carreras, recarga la página para intentar nuevamente."
           className="w-[750px]"
         />
       )}
