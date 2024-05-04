@@ -12,7 +12,6 @@ export default function Page({ params }: { params: { majorId: string } }) {
       queryKey: ["assignatures", majorId],
       queryFn: async () => await fetchAssignaturesByMajor(majorId),
     })
-  console.log(isLoading, isError, error?.message)
 
   const errorMessage =
     error?.message === "asignaturas no encontradas"
