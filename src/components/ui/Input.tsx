@@ -12,6 +12,8 @@ export default function Input({
   children,
   ...props
 }: InputProps) {
-  const styles = `input input-bordered ${error && "input-error"} ${className}`
+  const styles = `input input-bordered lg:input-md input-sm ${
+    error && "input-error"
+  } ${className}`
   return <input className={styles} {...props} {...register} />
 }
