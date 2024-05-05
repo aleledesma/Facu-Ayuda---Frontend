@@ -9,8 +9,10 @@ import { Major } from "@/types/majorInterface"
 import { Assignature } from "@/types/assignatureIterface"
 import { fetchAssignaturesByMajor } from "@/utils/assignatureFetchs"
 import ErrorSpan from "./ErrorSpan"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
+import { FileRequestResponse } from "@/types/fileInterface"
+import { showNotification } from "@/utils/showNotification"
 
 export default function UploadFileForm() {
   const [majorsData, setMajorsData] = useState<Major[]>([])
@@ -38,7 +40,7 @@ export default function UploadFileForm() {
       formData.append("file", file[0])
     }
     try {
-      const res = await axios.post(
+      const res = await axios.post<FileRequestResponse>(
         `${process.env.NEXT_PUBLIC_API_URL}/file/upload`,
         formData,
         {
@@ -48,8 +50,12 @@ export default function UploadFileForm() {
           withCredentials: true,
         }
       )
+      showNotification(res.data.message, res.data.ok)
       router.push("/")
     } catch (error) {
+      if (error instanceof AxiosError) {
+        showNotification(error.response?.data.message, false)
+      }
       console.log(error)
     }
   }
