@@ -11,21 +11,7 @@ import useUserContext from "@/hooks/useUserContext"
 import toast from "react-hot-toast"
 import { ResponseInterface } from "@/types/responseInterface"
 import { UserResponseInterface } from "@/types/userInterface"
-
-const showNotification = (message: string, ok: boolean) => {
-  const toastConfig = {
-    duration: 5000,
-    position: "top-right",
-    style: {
-      marginTop: "50px",
-    },
-  }
-  if (ok) {
-    toast.success(message, toastConfig as any) // ta mal
-  } else {
-    toast.error(message, toastConfig as any) // ta mal
-  }
-}
+import { showNotification } from "@/utils/showNotification"
 
 export default function LoginForm() {
   const [loginIsActive, setLoginIsActive] = useState(false)
