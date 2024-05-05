@@ -108,17 +108,19 @@ export default function LoginForm() {
         type="text"
         id="name"
         placeholder="Nombre"
+        className="lg:input-md input-sm"
         error={errors.name?.message}
         register={register("name")}
       />
       <ErrorSpan error={errors.name?.message} className="ml-1" />
 
-      <div className="flex gap-2">
+      <div className="flex gap-3 md:flex-row flex-col">
         <div className="flex flex-col flex-1 gap-2">
           <Input
             type="text"
             id="email"
             placeholder="Email"
+            className="lg:input-md input-sm"
             error={errors.email?.message}
             register={register("email")}
           />
@@ -130,6 +132,7 @@ export default function LoginForm() {
             type="text"
             id="code"
             placeholder="código"
+            className="lg:input-md input-sm"
             error={errors.code?.message}
             register={register("code")}
             disabled={!loginIsActive}
@@ -144,7 +147,7 @@ export default function LoginForm() {
       <div className="flex gap-2">
         <button
           type="submit"
-          className={`btn btn-primary flex-1 ${
+          className={`btn btn-primary lg:btn-md btn-sm flex-1 ${
             !loginIsActive && "btn-disabled"
           }`}
         >
@@ -153,7 +156,9 @@ export default function LoginForm() {
         <button
           onClick={getLoginCode}
           type="button"
-          className={`btn btn-neutral ${!codeIsActive && "btn-disabled"}`}
+          className={`btn btn-neutral lg:btn-md btn-sm ${
+            !codeIsActive && "btn-disabled"
+          }`}
         >
           Obtener Código
         </button>
