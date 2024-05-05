@@ -75,9 +75,15 @@ export default function UploadFileForm() {
     if (majorSelectedId) {
       //falta gestionar errores
       const fetchAssignatures = async () => {
-        const assignatures = await fetchAssignaturesByMajor(majorSelectedId)
-        if (assignatures.data) {
-          setAssignaturesData(assignatures.data)
+        try {
+          const assignatures = await fetchAssignaturesByMajor(majorSelectedId)
+          if (assignatures.data) {
+            setAssignaturesData(assignatures.data)
+          }
+        } catch (error) {
+          if (error instanceof AxiosError) {
+            showNotification(error.message, false)
+          }
         }
       }
       fetchAssignatures()

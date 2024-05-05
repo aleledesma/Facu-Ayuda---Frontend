@@ -12,7 +12,7 @@ export const fetchAssignaturesByMajor = async (
   } catch (error) {
     const axiosError = error as AxiosError<AssignaturesRequestResponse>
     if (axiosError.response?.data.message) {
-      throw new Error(axiosError.response?.data.message)
+      throw new AxiosError(axiosError.response?.data.message)
     }
     throw new Error("error al obtener las asignaturas")
   }
