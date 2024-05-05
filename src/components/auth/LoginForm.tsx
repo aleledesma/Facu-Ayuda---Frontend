@@ -108,7 +108,6 @@ export default function LoginForm() {
         type="text"
         id="name"
         placeholder="Nombre"
-        className="lg:input-md input-sm"
         error={errors.name?.message}
         register={register("name")}
       />
@@ -120,7 +119,6 @@ export default function LoginForm() {
             type="text"
             id="email"
             placeholder="Email"
-            className="lg:input-md input-sm"
             error={errors.email?.message}
             register={register("email")}
           />
@@ -132,7 +130,6 @@ export default function LoginForm() {
             type="text"
             id="code"
             placeholder="código"
-            className="lg:input-md input-sm"
             error={errors.code?.message}
             register={register("code")}
             disabled={!loginIsActive}
