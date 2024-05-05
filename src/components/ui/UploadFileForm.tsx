@@ -94,7 +94,7 @@ export default function UploadFileForm() {
 
       <select
         defaultValue=""
-        className="select select-bordered"
+        className="select select-bordered lg:select-md select-sm"
         {...register("majorId", {
           onChange: (e) => {
             setMajorSelectedId(e.target.value)
@@ -115,7 +115,7 @@ export default function UploadFileForm() {
 
       <select
         defaultValue=""
-        className="select select-bordered"
+        className="select select-bordered lg:select-md select-sm"
         {...register("assignatureId")}
         disabled={majorSelectedId.length === 0}
       >
@@ -141,7 +141,7 @@ export default function UploadFileForm() {
         className="file-input file-input-bordered"
       />
       <ErrorSpan error={errors.file?.message} />
-      <button className="btn btn-success">Subir</button>
+      <button className="btn btn-success lg:btn-md btn-sm">Subir</button>
     </form>
   )
 }
