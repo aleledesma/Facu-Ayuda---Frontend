@@ -17,7 +17,7 @@ const showNotification = (message: string, ok: boolean) => {
     duration: 5000,
     position: "top-right",
     style: {
-      "margin-top": "50px",
+      marginTop: "50px",
     },
   }
   if (ok) {
