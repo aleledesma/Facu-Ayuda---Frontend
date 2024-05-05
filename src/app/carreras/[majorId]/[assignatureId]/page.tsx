@@ -22,10 +22,7 @@ export default function Page({
     <div className="flex flex-col gap-4 items-center mt-10">
       {isLoading && <span className="loading loading-dots loading-lg"></span>}
       {isError && (
-        <ErrorAlert
-          errorMessage="Ocurrio un error al obtener los archivos :("
-          className="w-[750px]"
-        />
+        <ErrorAlert errorMessage="Ocurrio un error al obtener los archivos :(" />
       )}
       {allIsGood && (
         <div className="flex flex-col gap-6 w-full items-center">
