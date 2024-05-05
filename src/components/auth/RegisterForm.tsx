@@ -86,7 +86,7 @@ export default function RegisterForm() {
           </option>
         ))}
       </select>
-      <button type="submit" className="btn btn-success">
+      <button type="submit" className="btn btn-success lg:btn-md btn-sm">
         Registrarse
       </button>
     </form>
