@@ -28,8 +28,10 @@ export default function Page({
         />
       )}
       {allIsGood && (
-        <div className="flex flex-col gap-6">
-          <h2 className="text-2xl text-center">Archivos de la asignatura</h2>
+        <div className="flex flex-col gap-6 w-full items-center">
+          <h2 className="lg:text-2xl md:text-xl text-lg text-center">
+            Archivos de la asignatura
+          </h2>
           {data.data?.map((file) => (
             <FileCard key={file._id} file={file} />
           ))}
