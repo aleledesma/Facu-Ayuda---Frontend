@@ -11,8 +11,10 @@ import ErrorSpan from "../ui/ErrorSpan"
 import { fetchAllMajors } from "@/utils/majorFetchs"
 import { Major } from "@/types/majorInterface"
 import { useEffect, useState } from "react"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { useRouter } from "next/navigation"
+import { UserResponseInterface } from "@/types/userInterface"
+import { showNotification } from "@/utils/showNotification"
 
 export default function RegisterForm() {
   const [majorsData, setMajorsData] = useState<Major[]>([])
@@ -26,7 +28,7 @@ export default function RegisterForm() {
   const handleRegister = async (data: RegisterFormType) => {
     const major = data.majorId?.length > 0 ? data.majorId : undefined
     try {
-      const res = await axios.post(
+      const res = await axios.post<UserResponseInterface>(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
         {
           username: data.username,
@@ -34,8 +36,12 @@ export default function RegisterForm() {
           majorId: major,
         }
       )
+      showNotification(res.data.message, res.data.ok)
       router.push("/login")
     } catch (error) {
+      if (error instanceof AxiosError) {
+        showNotification(error.response?.data.message, false)
+      }
       console.log(error)
     }
   }
