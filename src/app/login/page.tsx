@@ -1,4 +1,5 @@
 import LoginForm from "@/components/auth/LoginForm"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -7,8 +8,11 @@ export default function Page() {
         Inicio de Sesión
       </h1>
       <p className="text-sm mb-3 text-center">
-        Accede con tus datos o <span className="link">Registrate</span> si aún
-        no tienes una cuenta
+        Accede con tus datos o{" "}
+        <Link href="/register" className="link">
+          Registrate
+        </Link>{" "}
+        si aún no tienes una cuenta
       </p>
       <LoginForm />
     </div>

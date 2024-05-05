@@ -55,7 +55,7 @@ export default function UploadFileForm() {
   }
 
   useEffect(() => {
-    //falta gestionar errores
+    //falta gestionar errores // se repite en registerForm (factorizar)
     const fetchMajors = async () => {
       const majors = await fetchAllMajors()
       if (majors.data) {
