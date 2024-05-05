@@ -35,7 +35,11 @@ export default function Navbar() {
               <Link href="/subir">Subir Material</Link>
             </li>
             <li>
-              <Link href="/login">Iniciar Sesión</Link>
+              {!user ? (
+                <Link href="/login">Iniciar Sesión</Link>
+              ) : (
+                <button onClick={handleLogout}>Cerrar Sesión</button>
+              )}
             </li>
           </ul>
         </div>
