@@ -7,9 +7,9 @@ interface AssignatureCardProps {
 
 export default function AssignatureCard({ assignature }: AssignatureCardProps) {
   return (
-    <div className="collapse collapse-arrow bg-base-200 w-7/12">
+    <div className="collapse collapse-arrow bg-base-200 lg:w-[700px] md:w-[500px] w-[90%]">
       <input type="radio" name="assignaturesList" id="assignaturesList" />
-      <div className="collapse-title text-xl font-semibold">
+      <div className="collapse-title lg:text-xl md:text-base sm:text-sm font-semibold">
         {assignature.name}
       </div>
       <div className="collapse-content">
@@ -22,7 +22,7 @@ export default function AssignatureCard({ assignature }: AssignatureCardProps) {
         </div>
         <Link
           href={`/carreras/${assignature.major_id}/${assignature._id}`}
-          className="btn btn-active btn-ghost btn-md btn-block mt-7"
+          className="btn btn-active btn-ghost lg:btn-md btn-sm btn-block mt-7"
         >
           Ver Archivos
         </Link>
