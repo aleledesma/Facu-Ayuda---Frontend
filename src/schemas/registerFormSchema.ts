@@ -6,8 +6,8 @@ export const registerFormSchema = z.object({
     .min(3, {
       message: "El nombre de usuario debe tener al menos 3 caracteres",
     })
-    .max(20, {
-      message: "El nombre de usuario debe tener como máximo 20 caracteres",
+    .max(35, {
+      message: "El nombre de usuario debe tener como máximo 35 caracteres",
     }),
   email: z.string().email({ message: "El correo electrónico no es válido" }),
   majorId: z.string(),
