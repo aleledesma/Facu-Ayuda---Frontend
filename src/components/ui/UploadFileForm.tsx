@@ -18,6 +18,7 @@ export default function UploadFileForm() {
   const [majorsData, setMajorsData] = useState<Major[]>([])
   const [majorSelectedId, setMajorSelectedId] = useState<string>("")
   const [assignaturesData, setAssignaturesData] = useState<Assignature[]>([])
+  const [isUploading, setIsUploading] = useState<boolean>(false)
 
   const router = useRouter()
 
@@ -40,6 +41,7 @@ export default function UploadFileForm() {
       formData.append("file", file[0])
     }
     try {
+      setIsUploading(true)
       const res = await axios.post<FileRequestResponse>(
         `${process.env.NEXT_PUBLIC_API_URL}/file/upload`,
         formData,
@@ -57,6 +59,8 @@ export default function UploadFileForm() {
         showNotification(error.response?.data.message, false)
       }
       console.log(error)
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -153,7 +157,13 @@ export default function UploadFileForm() {
         className="file-input file-input-bordered"
       />
       <ErrorSpan error={errors.file?.message} />
-      <button className="btn btn-success lg:btn-md btn-sm">Subir</button>
+      <button
+        className={`btn btn-success lg:btn-md btn-sm ${
+          isUploading && "btn-disabled"
+        }`}
+      >
+        {!isUploading ? "Subir" : "Subiendo ..."}
+      </button>
     </form>
   )
 }
