@@ -23,7 +23,7 @@ export default function RootLayout({
         <ReactQueryProvider>
           <UserAuthProvider>
             <Navbar />
-            <main>
+            <main className="mb-7">
               <Toaster />
               {children}
             </main>
