@@ -1,6 +1,6 @@
 import z from "zod"
 
-const fileIsDefined = typeof FileList !== undefined
+const fileIsDefined = typeof FileList !== null
 
 export const uploadFileSchema = z.object({
   file: fileIsDefined
